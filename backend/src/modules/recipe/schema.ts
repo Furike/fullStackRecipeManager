@@ -23,9 +23,23 @@ const createRecipeResponseSchema = z.object({
   ...createRecipeCore,
 });
 
+const getRecipesSchema = z.object({
+  title: z.string().optional(),
+});
+
+const getRecipesResponseSchema = z.array(
+  z.object({
+    id: z.number(),
+    ...createRecipeCore,
+  }),
+);
+
 export type CreateRecipeInput = z.infer<typeof createRecipeSchema>;
+export type GetRecipesInput = z.infer<typeof getRecipesSchema>;
 
 export const { schemas: recipeSchemas, $ref } = buildJsonSchemas({
   createRecipeSchema,
   createRecipeResponseSchema,
+  getRecipesSchema,
+  getRecipesResponseSchema,
 });

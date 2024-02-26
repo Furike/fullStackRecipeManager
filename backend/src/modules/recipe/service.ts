@@ -1,5 +1,5 @@
 import prisma from '../../utils/prisma';
-import { CreateRecipeInput } from './schema';
+import { CreateRecipeInput, GetRecipesInput } from './schema';
 
 export async function createRecipe(input: CreateRecipeInput) {
   const { ingredients, ...rest } = input;
@@ -22,4 +22,13 @@ export async function createRecipe(input: CreateRecipeInput) {
     },
   });
   return recipe;
+}
+
+export async function getRecipes(input: GetRecipesInput) {
+  const recipes = await prisma.recipe.findMany({
+    where: {
+      ...(input.title ? { title: { contains: input.title } } : {}),
+    },
+  });
+  return recipes;
 }
