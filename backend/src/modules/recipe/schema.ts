@@ -36,6 +36,7 @@ const getRecipesResponseSchema = z.array(
 
 export type CreateRecipeInput = z.infer<typeof createRecipeSchema>;
 export type GetRecipesInput = z.infer<typeof getRecipesSchema>;
+export type GetRecipesResponse = z.infer<typeof getRecipesResponseSchema>;
 
 export const { schemas: recipeSchemas, $ref } = buildJsonSchemas({
   createRecipeSchema,
