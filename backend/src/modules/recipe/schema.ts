@@ -35,6 +35,7 @@ const getRecipesResponseSchema = z.array(
 );
 
 export type CreateRecipeInput = z.infer<typeof createRecipeSchema>;
+export type CreateRecipeResponse = z.infer<typeof createRecipeResponseSchema>;
 export type GetRecipesInput = z.infer<typeof getRecipesSchema>;
 export type GetRecipesResponse = z.infer<typeof getRecipesResponseSchema>;
 
