@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Search from './Search';
-import List from './List';
+import Search from '../components/Search';
+import List from '../components/List';
 import { Box, Container, Typography } from '@mui/material';
 
 function Recipes() {
