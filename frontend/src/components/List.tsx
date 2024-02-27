@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import getRecipes from '../api/getRecipes';
+import { Box, Paper, Typography } from '@mui/material';
 
 type Props = {
   title: string;
@@ -16,13 +17,32 @@ function List({ title }: Props) {
   if (error) return 'An error has occurred: ' + error.message;
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+        justifyContent: 'space-between',
+        gap: 2,
+        flexWrap: 'wrap',
+      }}
+    >
       {data.map((r) => (
-        <p>
-          {r.id} - {r.title}
-        </p>
+        <Paper
+          elevation={3}
+          sx={{
+            width: { xs: 1, md: 350 },
+            minHeight: 150,
+          }}
+        >
+          <Box sx={{ m: 3 }}>
+            <Typography variant="h5">{r.title}</Typography>
+            <Typography sx={{ mt: 2 }}>
+              {r.instructions.split('.')[0]}
+            </Typography>
+          </Box>
+        </Paper>
       ))}
-    </div>
+    </Box>
   );
 }
 

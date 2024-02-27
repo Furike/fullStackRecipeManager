@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { debounce } from '../utils';
+import { TextField } from '@mui/material';
 
 type Props = {
   onChange: (value: string) => void;
@@ -15,7 +16,16 @@ function Search({ onChange }: Props) {
     debouncedHandleSearch(e.target.value);
   };
 
-  return <input value={search} onChange={handleInputChange} />;
+  return (
+    <TextField
+      id="title-search"
+      label="Search by title"
+      variant="outlined"
+      size="small"
+      value={search}
+      onChange={handleInputChange}
+    />
+  );
 }
 
 export default Search;
