@@ -6,13 +6,15 @@
   "private": true,
   "scripts": {
     "typecheck": "yarn workspaces run typecheck",
-    "test": "yarn workspaces run test"
+    "test": "yarn workspaces run test",
+    "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace frontend dev\""
   },
   "workspaces": [
     "backend",
     "frontend"
   ],
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "prettier": "^3.2.5"
   }
 }
