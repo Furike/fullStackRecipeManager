@@ -39,10 +39,10 @@ const queryClient = new QueryClient();
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#59D5E0',
+      main: '#00796b',
     },
     secondary: {
-      main: '#FAA300',
+      main: '#ff4081',
     },
   },
 });
