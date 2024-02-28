@@ -1,3 +1,4 @@
+import getNFirstWords from '../../utils/getNFirstWords';
 import prisma from '../../utils/prisma';
 import { CreateRecipeInput, GetRecipeInput, GetRecipesInput } from './schema';
 
@@ -39,7 +40,7 @@ export async function getRecipes(input: GetRecipesInput) {
   });
   const recipesWithDescriptions = recipes.map(({ instructions, ...rest }) => ({
     //take only first 5 words of the instructions
-    instructions: instructions.split(' ').slice(0, 4).join(' ') + '...',
+    instructions: getNFirstWords(instructions, 5),
     ...rest,
   }));
   return recipesWithDescriptions;
