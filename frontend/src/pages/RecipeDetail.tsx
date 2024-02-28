@@ -52,7 +52,12 @@ function RecipeDetail() {
         }}
       >
         <Button onClick={() => navigate('/')}>Back to all recipes</Button>
-        <DeleteRecipeModal id={data.id} />
+        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          <Button onClick={() => navigate(`/recipes/${data.id}/edit`)}>
+            Edit recipe
+          </Button>
+          <DeleteRecipeModal id={data.id} />
+        </Box>
       </Box>
 
       <Typography variant="h2" sx={{ mt: 3, color: 'secondary.main' }}>

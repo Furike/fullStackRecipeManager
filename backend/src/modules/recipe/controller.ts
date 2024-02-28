@@ -4,6 +4,7 @@ import {
   deleteRecipeById,
   getRecipeById,
   getRecipes,
+  updateRecipe,
 } from './service';
 import { CreateRecipeInput, GetRecipeInput, GetRecipesInput } from './schema';
 
@@ -59,6 +60,21 @@ export async function deleteRecipeHandler(
   try {
     await deleteRecipeById(input);
     return reply.code(204).send();
+  } catch (error) {
+    console.error(error);
+    return reply.code(500).send(error);
+  }
+}
+
+export async function updateRecipeHandler(
+  request: FastifyRequest<{ Params: GetRecipeInput; Body: CreateRecipeInput }>,
+  reply: FastifyReply,
+) {
+  const id = request.params.id;
+  const body = request.body;
+  try {
+    await updateRecipe(id, body);
+    return reply.code(200).send();
   } catch (error) {
     console.error(error);
     return reply.code(500).send(error);

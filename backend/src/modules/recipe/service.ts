@@ -60,3 +60,37 @@ export async function deleteRecipeById(input: GetRecipeInput) {
 
   await prisma.$transaction([deleteIngredients, deleteRecipes]);
 }
+
+export async function updateRecipe(
+  id: GetRecipeInput['id'],
+  recipe: CreateRecipeInput,
+) {
+  const { ingredients, ...rest } = recipe;
+  const deleteIngredients = prisma.ingredient.deleteMany({
+    where: {
+      recipeId: id,
+    },
+  });
+  const updateRecipe = prisma.recipe.update({
+    where: {
+      id,
+    },
+    data: {
+      ...rest,
+      ingredients: {
+        create: ingredients,
+      },
+    },
+    include: {
+      ingredients: {
+        select: {
+          id: true,
+          name: true,
+          quantity: true,
+          unit: true,
+        },
+      },
+    },
+  });
+  await prisma.$transaction([deleteIngredients, updateRecipe]);
+}

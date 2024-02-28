@@ -4,6 +4,7 @@ import {
   deleteRecipeHandler,
   getRecipeHandler,
   getRecipesHandler,
+  updateRecipeHandler,
 } from './controller';
 import { $ref } from './schema';
 
@@ -46,6 +47,16 @@ async function recipeRoutes(server: FastifyInstance) {
       },
     },
     deleteRecipeHandler,
+  );
+  server.put(
+    '/:id',
+    {
+      schema: {
+        params: $ref('getRecipeSchema'),
+        body: $ref('createRecipeSchema'),
+      },
+    },
+    updateRecipeHandler,
   );
 }
 
