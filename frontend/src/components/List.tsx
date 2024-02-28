@@ -1,12 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 import getRecipes from '../api/getRecipes';
-import { Box, Paper, Skeleton, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  Skeleton,
+  Typography,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   title: string;
 };
 
 function List({ title }: Props) {
+  const navigate = useNavigate();
+
   const { isPending, error, data } = useQuery({
     queryKey: ['recipes', { title }],
     queryFn: () => getRecipes(title),
@@ -29,7 +39,7 @@ function List({ title }: Props) {
             <Skeleton variant="rectangular" width={350} height={150} key={i} />
           ))
         : data.map((r) => (
-            <Paper
+            <Card
               key={r.id}
               elevation={3}
               sx={{
@@ -43,7 +53,15 @@ function List({ title }: Props) {
                   {r.instructions.split('.')[0]}
                 </Typography>
               </Box>
-            </Paper>
+              <CardActions>
+                <Button
+                  size="small"
+                  onClick={() => navigate(`/recipes/${r.id}`)}
+                >
+                  Detail
+                </Button>
+              </CardActions>
+            </Card>
           ))}
     </Box>
   );

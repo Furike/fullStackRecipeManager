@@ -3,7 +3,8 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Recipes from './pages/Recipes';
 import ErrorPage from './pages/ErrorPage';
-import RecipeDetail from './pages/CreateRecipe';
+import CreateRecipe from './pages/CreateRecipe';
+import RecipeDetail from './pages/RecipeDetail';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/recipes/new',
+    element: <CreateRecipe />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/recipes/:id',
     element: <RecipeDetail />,
     errorElement: <ErrorPage />,
   },

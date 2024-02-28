@@ -17,7 +17,7 @@ const createRecipeSchema = z.object({
   ingredients: z.array(z.object({ ...createIngredientCore })),
 });
 
-const createRecipeResponseSchema = z.object({
+const recipeResponseSchema = z.object({
   id: z.number(),
   ingredients: z.array(z.object({ id: z.number(), ...createIngredientCore })),
   ...createRecipeCore,
@@ -34,14 +34,20 @@ const getRecipesResponseSchema = z.array(
   }),
 );
 
+const getRecipeSchema = z.object({
+  id: z.number(),
+});
+
 export type CreateRecipeInput = z.infer<typeof createRecipeSchema>;
-export type CreateRecipeResponse = z.infer<typeof createRecipeResponseSchema>;
+export type RecipeResponse = z.infer<typeof recipeResponseSchema>;
 export type GetRecipesInput = z.infer<typeof getRecipesSchema>;
 export type GetRecipesResponse = z.infer<typeof getRecipesResponseSchema>;
+export type GetRecipeInput = z.infer<typeof getRecipeSchema>;
 
 export const { schemas: recipeSchemas, $ref } = buildJsonSchemas({
   createRecipeSchema,
-  createRecipeResponseSchema,
+  recipeResponseSchema,
   getRecipesSchema,
   getRecipesResponseSchema,
+  getRecipeSchema,
 });

@@ -1,5 +1,9 @@
 import { FastifyInstance } from 'fastify';
-import { createRecipeHandler, getRecipesHandler } from './controller';
+import {
+  createRecipeHandler,
+  getRecipeHandler,
+  getRecipesHandler,
+} from './controller';
 import { $ref } from './schema';
 
 async function recipeRoutes(server: FastifyInstance) {
@@ -8,7 +12,7 @@ async function recipeRoutes(server: FastifyInstance) {
     {
       schema: {
         body: $ref('createRecipeSchema'),
-        response: { 201: $ref('createRecipeResponseSchema') },
+        response: { 201: $ref('recipeResponseSchema') },
       },
     },
     createRecipeHandler,
@@ -22,6 +26,16 @@ async function recipeRoutes(server: FastifyInstance) {
       },
     },
     getRecipesHandler,
+  );
+  server.get(
+    '/:id',
+    {
+      schema: {
+        params: $ref('getRecipeSchema'),
+        response: { 200: $ref('recipeResponseSchema') },
+      },
+    },
+    getRecipeHandler,
   );
 }
 

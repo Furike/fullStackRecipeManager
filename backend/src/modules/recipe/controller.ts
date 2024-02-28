@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { createRecipe, getRecipes } from './service';
-import { CreateRecipeInput, GetRecipesInput } from './schema';
+import { createRecipe, getRecipeById, getRecipes } from './service';
+import { CreateRecipeInput, GetRecipeInput, GetRecipesInput } from './schema';
 
 export async function createRecipeHandler(
   request: FastifyRequest<{
@@ -26,6 +26,20 @@ export async function getRecipesHandler(
   try {
     const recipes = await getRecipes(query);
     return reply.code(200).send(recipes);
+  } catch (error) {
+    console.error(error);
+    return reply.code(500).send(error);
+  }
+}
+
+export async function getRecipeHandler(
+  request: FastifyRequest<{ Params: GetRecipeInput }>,
+  reply: FastifyReply,
+) {
+  const input = request.params;
+  try {
+    const recipe = await getRecipeById(input);
+    return reply.code(200).send(recipe);
   } catch (error) {
     console.error(error);
     return reply.code(500).send(error);
