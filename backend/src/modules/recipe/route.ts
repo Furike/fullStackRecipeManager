@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import {
   createRecipeHandler,
+  deleteRecipeHandler,
   getRecipeHandler,
   getRecipesHandler,
 } from './controller';
@@ -36,6 +37,15 @@ async function recipeRoutes(server: FastifyInstance) {
       },
     },
     getRecipeHandler,
+  );
+  server.delete(
+    '/:id',
+    {
+      schema: {
+        params: $ref('getRecipeSchema'),
+      },
+    },
+    deleteRecipeHandler,
   );
 }
 

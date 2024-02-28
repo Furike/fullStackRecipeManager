@@ -8,6 +8,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import getRecipe from '../api/getRecipe';
+import DeleteRecipeModal from '../components/DeleteRecipeModal';
 
 function RecipeDetail() {
   const navigate = useNavigate();
@@ -43,7 +44,17 @@ function RecipeDetail() {
       <Typography variant="h1" sx={{ mb: 3, color: 'primary.main' }}>
         {data.title}
       </Typography>
-      <Button onClick={() => navigate('/')}>Back to all recipes</Button>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Button onClick={() => navigate('/')}>Back to all recipes</Button>
+        <DeleteRecipeModal id={data.id} />
+      </Box>
+
       <Typography variant="h2" sx={{ mt: 3, color: 'secondary.main' }}>
         Ingredients
       </Typography>

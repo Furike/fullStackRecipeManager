@@ -83,7 +83,11 @@ function CreateRecipe() {
           }
           onClick={createRecipe}
         >
-          {mutation.isPending ? <CircularProgress /> : 'Create recipe'}
+          {mutation.isPending ? (
+            <CircularProgress size={30} />
+          ) : (
+            'Create recipe'
+          )}
         </Button>
         {mutation.isError && (
           <Alert severity="error">

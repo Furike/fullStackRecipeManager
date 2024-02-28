@@ -1,5 +1,10 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { createRecipe, getRecipeById, getRecipes } from './service';
+import {
+  createRecipe,
+  deleteRecipeById,
+  getRecipeById,
+  getRecipes,
+} from './service';
 import { CreateRecipeInput, GetRecipeInput, GetRecipesInput } from './schema';
 
 export async function createRecipeHandler(
@@ -40,6 +45,20 @@ export async function getRecipeHandler(
   try {
     const recipe = await getRecipeById(input);
     return reply.code(200).send(recipe);
+  } catch (error) {
+    console.error(error);
+    return reply.code(500).send(error);
+  }
+}
+
+export async function deleteRecipeHandler(
+  request: FastifyRequest<{ Params: GetRecipeInput }>,
+  reply: FastifyReply,
+) {
+  const input = request.params;
+  try {
+    await deleteRecipeById(input);
+    return reply.code(204).send();
   } catch (error) {
     console.error(error);
     return reply.code(500).send(error);
