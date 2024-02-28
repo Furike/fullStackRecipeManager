@@ -46,17 +46,17 @@ export async function getRecipeById(input: GetRecipeInput) {
 }
 
 export async function deleteRecipeById(input: GetRecipeInput) {
-  const deletePosts = prisma.ingredient.deleteMany({
+  const deleteIngredients = prisma.ingredient.deleteMany({
     where: {
       recipeId: input.id,
     },
   });
 
-  const deleteUser = prisma.recipe.delete({
+  const deleteRecipes = prisma.recipe.delete({
     where: {
       id: input.id,
     },
   });
 
-  await prisma.$transaction([deletePosts, deleteUser]);
+  await prisma.$transaction([deleteIngredients, deleteRecipes]);
 }
