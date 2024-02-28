@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "typecheck": "yarn workspaces run typecheck"
+  },
   "workspaces": [
     "backend",
     "frontend"
