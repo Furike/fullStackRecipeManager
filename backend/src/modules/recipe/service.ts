@@ -29,8 +29,20 @@ export async function getRecipes(input: GetRecipesInput) {
     where: {
       ...(input.title ? { title: { contains: input.title } } : {}),
     },
+    include: {
+      ingredients: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
-  return recipes;
+  const recipesWithDescriptions = recipes.map(({ instructions, ...rest }) => ({
+    //take only first 5 words of the instructions
+    instructions: instructions.split(' ').slice(0, 4).join(' ') + '...',
+    ...rest,
+  }));
+  return recipesWithDescriptions;
 }
 
 export async function getRecipeById(input: GetRecipeInput) {

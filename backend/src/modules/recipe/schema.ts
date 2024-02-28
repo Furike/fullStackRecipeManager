@@ -31,6 +31,7 @@ const getRecipesResponseSchema = z.array(
   z.object({
     id: z.number(),
     ...createRecipeCore,
+    ingredients: z.array(z.object({ name: z.string() })),
   }),
 );
 
